@@ -764,7 +764,7 @@ protected:
 	//unsigned short remoteSystemListSize;
 	///Store the maximum incoming connection allowed 
 	unsigned int maximumIncomingConnections;
-	RakNet::BitStream offlinePingResponse;
+	const char* offlinePingResponse;
 	///Local Player ID
 	// SystemAddress mySystemAddress[MAXIMUM_NUMBER_OF_INTERNAL_IDS];
 	char incomingPassword[256];

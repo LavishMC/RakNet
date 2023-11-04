@@ -2271,10 +2271,11 @@ void RakPeer::SetOfflinePingResponse( const char *data, const unsigned int lengt
 	RakAssert(length < 400);
 
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Lock();
-	offlinePingResponse.Reset();
+	//offlinePingResponse.Reset();
 
-	if ( data && length > 0 )
-		offlinePingResponse.Write( data, length );
+	//if ( data && length > 0 )
+	//	offlinePingResponse.Write( data, length );
+	offlinePingResponse = data;
 
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Unlock();
 }
@@ -2288,8 +2289,8 @@ void RakPeer::SetOfflinePingResponse( const char *data, const unsigned int lengt
 void RakPeer::GetOfflinePingResponse( char **data, unsigned int *length )
 {
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Lock();
-	*data = (char*) offlinePingResponse.GetData();
-	*length = (int) offlinePingResponse.GetNumberOfBytesUsed();
+	*data = (char*) offlinePingResponse;
+	//*length = (int) offlinePingResponse.GetNumberOfBytesUsed();
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Unlock();
 }
 
@@ -4654,7 +4655,7 @@ bool ProcessOfflineNetworkPacket( SystemAddress systemAddress, const char *data,
 
 				rakPeer->rakPeerMutexes[ RakPeer::offlinePingResponse_Mutex ].Lock();
 				// They are connected, so append offline ping data
-				outBitStream.Write( (char*)rakPeer->offlinePingResponse.GetData(), rakPeer->offlinePingResponse.GetNumberOfBytesUsed() );
+				outBitStream.Write( (char*)rakPeer->offlinePingResponse);
 				rakPeer->rakPeerMutexes[ RakPeer::offlinePingResponse_Mutex ].Unlock();
 
 				unsigned i;
