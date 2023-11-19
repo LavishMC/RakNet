@@ -2271,11 +2271,10 @@ void RakPeer::SetOfflinePingResponse( const char *data, const unsigned int lengt
 	RakAssert(length < 400);
 
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Lock();
-	//offlinePingResponse.Reset();
+	offlinePingResponse.Reset();
 
-	//if ( data && length > 0 )
-	//	offlinePingResponse.Write( data, length );
-	offlinePingResponse = data;
+	if ( data && length > 0 )
+		offlinePingResponse.Write( data, length );
 
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Unlock();
 }
@@ -2289,8 +2288,8 @@ void RakPeer::SetOfflinePingResponse( const char *data, const unsigned int lengt
 void RakPeer::GetOfflinePingResponse( char **data, unsigned int *length )
 {
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Lock();
-	*data = (char*) offlinePingResponse;
-	//*length = (int) offlinePingResponse.GetNumberOfBytesUsed();
+	*data = (char*)offlinePingResponse.GetData();
+	*length = (int)offlinePingResponse.GetNumberOfBytesUsed();
 	rakPeerMutexes[ offlinePingResponse_Mutex ].Unlock();
 }
 
