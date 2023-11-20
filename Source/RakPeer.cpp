@@ -4654,7 +4654,7 @@ bool ProcessOfflineNetworkPacket( SystemAddress systemAddress, const char *data,
 
 				rakPeer->rakPeerMutexes[ RakPeer::offlinePingResponse_Mutex ].Lock();
 				// They are connected, so append offline ping data
-				outBitStream.Write( (char*)rakPeer->offlinePingResponse);
+				outBitStream.Write(rakPeer->offlinePingResponse);
 				rakPeer->rakPeerMutexes[ RakPeer::offlinePingResponse_Mutex ].Unlock();
 
 				unsigned i;
